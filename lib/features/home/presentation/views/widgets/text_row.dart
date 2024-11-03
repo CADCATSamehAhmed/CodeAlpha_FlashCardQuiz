@@ -18,7 +18,7 @@ class TextRow extends StatelessWidget {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: (){},
+            onPressed: () async{},
             style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.mainColor,
                 padding: EdgeInsets.symmetric(horizontal: 20.w),

@@ -1,22 +1,21 @@
+import 'package:flash_card_quiz/core/themes/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DefaultDormField extends StatelessWidget {
+class DefaultFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType type;
   final String? Function(String?) validate;
   final VoidCallback? onTap;
   final VoidCallback? onEditingComplete;
-  final IconData? prefixIcon;
   final bool? obscureText;
-  final IconData? suffixIcon;
-  final VoidCallback? suffixPressed;
   final String? label;
   final String? hint;
   final bool? hasBorders;
   final bool? autofocus;
   final Color? filledColor;
 
-  const DefaultDormField(
+  const DefaultFormField(
       {super.key,
       required this.controller,
       required this.type,
@@ -25,10 +24,7 @@ class DefaultDormField extends StatelessWidget {
       this.hint,
       this.onTap,
       this.onEditingComplete,
-      this.prefixIcon,
       this.obscureText,
-      this.suffixIcon,
-      this.suffixPressed,
       this.hasBorders,
       this.autofocus,
       this.filledColor});
@@ -40,45 +36,40 @@ class DefaultDormField extends StatelessWidget {
       controller: controller,
       keyboardType: type,
       obscureText: obscureText ?? false,
-      cursorColor: Theme.of(context).primaryColor,
+      cursorColor:filledColor !=null ?Colors.white:AppColors.mainColor,
+      maxLines: 5,
+      minLines: 1,
       textAlign: TextAlign.start,
       validator: validate,
       onEditingComplete: onEditingComplete,
       onTap: onTap,
       autofocus: autofocus ?? false,
       focusNode: focusNode,
-      style: TextStyle(color: Theme.of(context).primaryColorDark),
+      style: TextStyle(color: filledColor !=null ?Colors.white:AppColors.mainColor),
       decoration: InputDecoration(
         filled: true,
         fillColor: filledColor ?? Colors.transparent,
         labelText: label,
-        labelStyle: TextStyle(color: Colors.grey.shade600),
+        labelStyle: const TextStyle(color: Colors.white),
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey.shade600),
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon,color: focusNode.hasFocus?Theme.of(context).primaryColor:Theme.of(context).primaryColorDark) : null,
-        suffixIcon: suffixIcon != null
-            ? IconButton(
-                icon: Icon(suffixIcon,color:focusNode.hasFocus?Theme.of(context).primaryColor:Theme.of(context).primaryColorDark),
-                onPressed: suffixPressed,
-              )
-            : null,
+        hintStyle: const TextStyle(color: Colors.white),
         border: hasBorders ?? true
             ? OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(15.r),
               )
             : null,
         enabledBorder: hasBorders ?? true
             ? OutlineInputBorder(
-                borderRadius: BorderRadius.circular(25),
+                borderRadius: BorderRadius.circular(15.r),
                 borderSide: BorderSide(
-                  color: Theme.of(context).primaryColorDark,
+                  color: AppColors.mainColor,
                 ),
               )
             : null,
         focusedBorder: hasBorders ?? true
             ? OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 1.5),
+                borderRadius: BorderRadius.circular(15.r),
+                borderSide: BorderSide(color: AppColors.mainColor, width: 1.5),
               )
             : null,
       ),

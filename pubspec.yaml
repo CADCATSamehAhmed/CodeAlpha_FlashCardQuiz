@@ -19,6 +19,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   bloc: ^8.1.4
   animate_do: ^3.3.4
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

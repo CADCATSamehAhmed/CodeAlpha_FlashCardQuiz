@@ -1,3 +1,4 @@
+import 'package:hive/hive.dart';
 import 'flash_card_model.dart';
 
 class QuizModel {
@@ -18,4 +19,14 @@ class QuizModel {
       'questions': questions,
     };
   }
+}
+
+@HiveType(typeId: 0)
+class QuizHiveModel extends HiveObject {
+
+  @HiveField(0)
+  late String title;
+
+  @HiveField(1)
+  late List<FlashCardModel> questions;
 }
