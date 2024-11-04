@@ -1,5 +1,5 @@
 import 'package:flash_card_quiz/core/themes/app_colors.dart';
-import 'package:flash_card_quiz/features/add_flashcard/presentation/views/add_flashcard_view.dart';
+import 'package:flash_card_quiz/features/add_flashcard/presentation/views/select_category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,7 +16,7 @@ class HomeFloatingButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const AddFlashCardView(),
+            builder: (context) => const SelectCategoryView(),
           ),
         );
       },

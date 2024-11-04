@@ -11,6 +11,10 @@ class GetDataLoadingState extends HomeStates {}
 class GetDataSuccessState extends HomeStates {}
 class PutDataLoadingState extends HomeStates {}
 class PutDataSuccessState extends HomeStates {}
+class DeleteFlashCardLoadingState extends HomeStates {}
+class DeleteFlashCardSuccessState extends HomeStates {}
+class DeleteAllFlashCardsLoadingState extends HomeStates {}
+class DeleteAllFlashCardsSuccessState extends HomeStates {}
 
 class HomeCubit extends Cubit<HomeStates> {
   HomeCubit() : super(HomeInitialState());
@@ -34,11 +38,19 @@ class HomeCubit extends Cubit<HomeStates> {
     return _homeCubit!;
   }
 
-  void changeBottomNavBarIndex(int index) {
+  Future<void> changeBottomNavBarIndex(int index) async {
     currentIndex = index;
+    await getData();
     emit(ChangeNavBarIndexState());
   }
+
   Future<void> getData() async {
+    scienceList=[];
+    historyList=[];
+    mathList=[];
+    computerList=[];
+    languageList=[];
+    businessList=[];
     emit(GetDataLoadingState());
     science = await collection.openBox<Map>('science');
     history = await collection.openBox<Map>('history');
@@ -73,20 +85,63 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(GetDataSuccessState());
   }
 
-  Future<void> putFlashCard(int cBoxId,String key,Map<dynamic,dynamic> value) async {
+
+  CollectionBox getCollectionBox(String cBoxString){
+    var cBox = science;
+    if(cBoxString == 'history'){cBox =history;}
+    else if(cBoxString == 'math'){cBox =math;}
+    else if(cBoxString == 'computer'){cBox =computer;}
+    else if(cBoxString == 'language'){cBox =language;}
+    else if(cBoxString == 'business'){cBox =business;}
+    return cBox;
+  }
+
+  List getList(String cBoxString){
+    var list = scienceList;
+    if(cBoxString == 'history'){list =historyList;}
+    else if(cBoxString == 'math'){list =mathList;}
+    else if(cBoxString == 'computer'){list =computerList;}
+    else if(cBoxString == 'language'){list =languageList;}
+    else if(cBoxString == 'business'){list =businessList;}
+    return list;
+  }
+
+  Future<void> putFlashCard(String category,String key,Map<dynamic,dynamic> value) async {
     emit(PutDataLoadingState());
     try{
-      var cBox = science;
-      if(cBoxId == 1){cBox =history;}
-      else if(cBoxId == 2){cBox =math;}
-      else if(cBoxId == 3){cBox =computer;}
-      else if(cBoxId == 4){cBox =language;}
-      else if(cBoxId == 5){cBox =business;}
+      var cBox = getCollectionBox(category);
       await cBox.put(key, value);
+      emit(PutDataSuccessState());
     }catch(e){
      rethrow;
     }
-    emit(PutDataSuccessState());
+  }
+
+  Future<void> deleteFlashCard(String category,String key,FlashCardModel flashCard) async {
+    emit(DeleteFlashCardLoadingState());
+    try{
+      var cBox = getCollectionBox(category);
+      List list = getList(category);
+      list.remove(flashCard);
+      await cBox.delete(key);
+      emit(DeleteFlashCardSuccessState());
+    }catch(e){
+     rethrow;
+    }
+  }
+  Future<void> deleteAllFlashCards() async {
+    emit(DeleteAllFlashCardsLoadingState());
+    try{
+      await science.clear();
+      await math.clear();
+      await computer.clear();
+      await history.clear();
+      await language.clear();
+      await business.clear();
+      emit(DeleteAllFlashCardsSuccessState());
+    }catch(e){
+     rethrow;
+    }
   }
 
 }

@@ -1,4 +1,5 @@
 import 'package:flash_card_quiz/features/home/presentation/view_model/home_cubit.dart';
+import 'package:flash_card_quiz/features/home/presentation/views/widgets/all_cards_body.dart';
 import 'package:flash_card_quiz/features/home/presentation/views/widgets/home_body.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,11 @@ class HomeView extends StatelessWidget {
         builder: (context, state) {
           HomeCubit cubit = HomeCubit.get(context);
           return Scaffold(
-            backgroundColor: Colors.white,
             body: homeScreens[cubit.currentIndex],
             bottomNavigationBar: BottomNavBar(
                 currentIndex: cubit.currentIndex,
-                onTap: (int index) {
-                  cubit.changeBottomNavBarIndex(index);
+                onTap: (int index) async{
+                  await cubit.changeBottomNavBarIndex(index);
                 }),
             floatingActionButton:HomeFloatingButton(index: cubit.currentIndex),
             floatingActionButtonLocation:FloatingActionButtonLocation.centerDocked,
@@ -30,5 +30,5 @@ class HomeView extends StatelessWidget {
 }
 List<Widget> homeScreens = [
   const HomeBody(),
-  Container()
+  const AllCardsBody(),
 ];

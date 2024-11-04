@@ -1,12 +1,14 @@
-import 'package:hive/hive.dart';
-
 class FlashCardModel {
+  late String category;
+  late String flashCardId;
   late String question;
   late String rightAnswer;
   late List<String> wrongAnswers;
   late int questionScore;
 
   FlashCardModel(
+      this.category,
+      this.flashCardId,
       this.question,
       this.rightAnswer,
       this.wrongAnswers,
@@ -14,6 +16,8 @@ class FlashCardModel {
       );
 
   FlashCardModel.fromMap(Map<dynamic, dynamic> data) {
+    category = data['category'];
+    flashCardId = data['flashCardId'];
     question = data['question'];
     rightAnswer = data['rightAnswer'];
     wrongAnswers = data['wrongAnswers'];
@@ -22,6 +26,8 @@ class FlashCardModel {
 
   Map<dynamic, dynamic> toMap() {
     return {
+      'category': category,
+      'flashCardId': flashCardId,
       'question': question,
       'rightAnswer': rightAnswer,
       'wrongAnswers': wrongAnswers,
@@ -29,18 +35,3 @@ class FlashCardModel {
     };
   }
 }
-
-@HiveType(typeId: 1)
-class FlashCardHiveModel extends HiveObject {
-
-  @HiveField(0)
-  late String question;
-
-  @HiveField(1)
-  late String rightAnswer;
-
-  @HiveField(2)
-  late List<String> wrongAnswers;
-
-  @HiveField(3)
-  late int questionScore;}

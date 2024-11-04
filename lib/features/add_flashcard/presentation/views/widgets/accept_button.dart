@@ -3,17 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AcceptButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  const AcceptButton({super.key,required this.onPressed});
+  final VoidCallback acceptFunction;
+  final VoidCallback addMoreFunction;
+
+  const AcceptButton({super.key, required this.acceptFunction, required this.addMoreFunction});
 
   @override
   Widget build(BuildContext context) {
-    return CustomButton(
-      text: 'Accept Flash Card',
-      onPressed: onPressed,
-      width: 320.w,
-      height: 50.h,
-      isPrime: true,
+    return Row(
+      children: [
+        CustomButton(
+          text: 'Add More FlashCard',
+          onPressed: addMoreFunction,
+          height: 50.h,
+          isPrime: false,
+        ),
+        const Spacer(),
+        CustomButton(
+          text: 'Accept Flash Card',
+          onPressed: acceptFunction,
+          height: 50.h,
+          isPrime: true,
+        ),
+      ],
     );
   }
 }

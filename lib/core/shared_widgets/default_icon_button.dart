@@ -1,3 +1,4 @@
+import 'package:flash_card_quiz/core/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,13 +19,14 @@ class DefaultIconButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
+        margin: const EdgeInsets.all(10).w,
         padding: const EdgeInsets.all(10).w,
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(.1),
-          borderRadius: BorderRadius.circular(borderRadius?.r??10.r)
+          color: AppColors.mainColor.withOpacity(.3),
+          borderRadius: BorderRadius.circular(borderRadius?.r??15.r)
         ),
         child: Icon(
-          iconData,color:Theme.of(context).primaryColor,size: 20.sp,
+          iconData,color:AppColors.secondary,size: 20.sp,
         ),
       ),
     );

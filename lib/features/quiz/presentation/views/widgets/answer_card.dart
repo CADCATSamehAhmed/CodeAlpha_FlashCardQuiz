@@ -6,36 +6,53 @@ class AnswerCard extends StatelessWidget {
   final String answer;
   final String correctAnswer;
   final bool isPressed;
-  final int choose;
+  final int selectedAnswerIndex;
   final int index;
   final ValueNotifier<int> score;
 
-  const AnswerCard(
-      {super.key,
-      required this.answer,
-      required this.correctAnswer,
-      required this.isPressed,
-      required this.choose,
-      required this.index, required this.score});
+  const AnswerCard({
+    super.key,
+    required this.answer,
+    required this.correctAnswer,
+    required this.isPressed,
+    required this.selectedAnswerIndex,
+    required this.index,
+    required this.score,
+  });
+
+  Color _getBackgroundColor() {
+    if (selectedAnswerIndex == index || (answer == correctAnswer && isPressed)) {
+      return (answer == correctAnswer && isPressed) ? Colors.green.shade400 : Colors.red;
+    }
+    return AppColors.mainColor;
+  }
+
+  void _checkForCorrectAnswer() {
+    if (answer == correctAnswer && isPressed && selectedAnswerIndex == index) {
+      score.value++;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // if(choose == index){
-    //   score.value=score.value+5;
-    // }
+    _checkForCorrectAnswer();
     return Container(
       constraints: BoxConstraints(minHeight: 50.h),
       width: 300.w,
       alignment: Alignment.center,
-      margin: const EdgeInsets.all(10).w,
-      padding: const EdgeInsets.all(10).w,
+      margin: EdgeInsets.symmetric(vertical:5.h,horizontal: 30.w),
+      padding: EdgeInsets.all(10.w),
       decoration: BoxDecoration(
-        color: (choose == index || (answer == correctAnswer && isPressed))
-            ? (answer == correctAnswer && isPressed)
-                ? Colors.green.shade400
-                : Colors.red
-            : AppColors.mainColor,
-        borderRadius: BorderRadius.circular(30).r,
+        color: _getBackgroundColor(),
+        borderRadius: BorderRadius.circular(25).r,
+        boxShadow:  const [
+          BoxShadow(
+            color: Colors.black,
+            spreadRadius: 0.5,
+            blurRadius: 6,
+            offset: Offset(3, 3),
+          ),
+        ],
       ),
       child: Text(
         answer,

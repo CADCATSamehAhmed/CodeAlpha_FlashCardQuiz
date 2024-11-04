@@ -15,7 +15,7 @@ class QuizFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(30).h,
+      padding: const EdgeInsets.fromLTRB(30,0,30,30).h,
       child: Column(
         children: [
           Text(

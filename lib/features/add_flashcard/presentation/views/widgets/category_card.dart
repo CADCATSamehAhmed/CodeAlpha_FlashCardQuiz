@@ -1,19 +1,16 @@
 import 'package:flash_card_quiz/core/themes/app_colors.dart';
-import 'package:flash_card_quiz/features/quiz/data/models/flash_card_model.dart';
-import 'package:flash_card_quiz/features/quiz/presentation/views/quiz_view.dart';
+import 'package:flash_card_quiz/features/add_flashcard/presentation/views/add_flashcard_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FlashCardCategory extends StatelessWidget {
-  final List<FlashCardModel> flashCardsList;
+class CategoryCard extends StatelessWidget {
   final IconData iconData;
   final String label;
 
-  const FlashCardCategory(
+  const CategoryCard(
       {super.key,
-      required this.iconData,
-      required this.label,
-      required this.flashCardsList});
+        required this.iconData,
+        required this.label,});
 
   @override
   Widget build(BuildContext context) {
@@ -21,30 +18,11 @@ class FlashCardCategory extends StatelessWidget {
       padding: const EdgeInsets.all(10).w,
       child: GestureDetector(
         onTap: () {
-          if (flashCardsList.isNotEmpty) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => QuizView(
-                  flashCardsList: flashCardsList,
-                ),
-              ),
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.floating,
-                dismissDirection: DismissDirection.startToEnd,
-                margin: EdgeInsets.all(20.w),
-                padding: EdgeInsets.all(10.w),
-                duration: const Duration(seconds: 3),
-                backgroundColor: AppColors.mainColor,
-                content: Text(
-                  'There is No Flash cards in $label Category yet!',
-                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                ),
-              ),
-            );
-          }
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => AddFlashCardView(category: label,),
+            ),
+          );
         },
         child: Container(
           height: 150.h,
@@ -66,7 +44,7 @@ class FlashCardCategory extends StatelessWidget {
             children: [
               Icon(
                 iconData,
-                size: 40.sp,
+                size: 30.sp,
                 color: AppColors.mainColor,
               ),
               SizedBox(height: 5.h),

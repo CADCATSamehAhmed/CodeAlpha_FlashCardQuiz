@@ -20,6 +20,7 @@ dependencies:
   bloc: ^8.1.4
   animate_do: ^3.3.4
   carousel_slider: ^5.0.0
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:

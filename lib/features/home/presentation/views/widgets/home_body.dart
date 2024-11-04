@@ -1,9 +1,9 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flash_card_quiz/core/themes/app_colors.dart';
 import 'package:flash_card_quiz/features/home/presentation/view_model/home_cubit.dart';
 import 'package:flash_card_quiz/features/home/presentation/views/widgets/flash_card_category.dart';
-import 'package:flash_card_quiz/features/home/presentation/views/widgets/home_app_bar.dart';
-import 'package:flash_card_quiz/features/quiz/data/models/quiz_model.dart';
 import 'package:flutter/material.dart';
-import 'text_row.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -11,47 +11,79 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeCubit homeCubit = HomeCubit.get(context);
-    return Column(
+    return ListView(
       children: [
-        const HomeAppBar(),
-        const TextRow(),
-        Wrap(
-          children: [
-            FlashCardCategory(
-              iconData: Icons.functions_sharp,
-              label: 'Mathematics',
-              quizModel:
-                  QuizModel('Mathematics', 'Mathematics', homeCubit.mathList),
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.mainColor,
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(75.r),
             ),
-            FlashCardCategory(
-              iconData: Icons.science,
-              label: 'Science',
-              quizModel: QuizModel('Science', 'Science', homeCubit.scienceList),
+          ),
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 50.h),
+            title: Text("Quiz Categories",style:TextStyle(color: Colors.white, fontSize: 25.sp),),
+            subtitle: DefaultTextStyle(
+              style: TextStyle(color: Colors.grey, fontSize: 18.sp),
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  TyperAnimatedText("Challenge your knowledge",speed:const Duration(milliseconds: 150)),
+                  TyperAnimatedText("Make Amazing FlashCards",speed:const Duration(milliseconds: 150)),
+                  TyperAnimatedText("Have a nice Studying",speed:const Duration(milliseconds: 150)),
+                ],
+                repeatForever: true,
+              ),
             ),
-            FlashCardCategory(
-              iconData: Icons.temple_hindu_sharp,
-              label: 'history',
-              quizModel: QuizModel('history', 'history', homeCubit.historyList),
+          ),
+        ),
+        Container(
+          color: AppColors.mainColor,
+          child: Container(
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(100.r),
+              ),
             ),
-            FlashCardCategory(
-              iconData: Icons.translate_outlined,
-              label: 'language',
-              quizModel:
-                  QuizModel('language', 'language', homeCubit.languageList),
+            child: GridView.count(
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+              children: [
+                FlashCardCategory(
+                  iconData: Icons.functions_sharp,
+                  label: 'Mathematics',
+                  flashCardsList: homeCubit.mathList,
+                ),
+                FlashCardCategory(
+                  iconData: Icons.science,
+                  label: 'Science',
+                  flashCardsList: homeCubit.scienceList,
+                ),
+                FlashCardCategory(
+                  iconData: Icons.temple_hindu_sharp,
+                  label: 'history',
+                  flashCardsList: homeCubit.historyList,
+                ),
+                FlashCardCategory(
+                  iconData: Icons.translate_outlined,
+                  label: 'language',
+                  flashCardsList: homeCubit.languageList,
+                ),
+                FlashCardCategory(
+                  iconData: Icons.business_center_sharp,
+                  label: 'Business',
+                  flashCardsList: homeCubit.businessList,
+                ),
+                FlashCardCategory(
+                  iconData: Icons.computer,
+                  label: 'Computer',
+                  flashCardsList: homeCubit.computerList,
+                ),
+              ],
             ),
-            FlashCardCategory(
-              iconData: Icons.business_center_sharp,
-              label: 'Business',
-              quizModel:
-                  QuizModel('Business', 'Business', homeCubit.businessList),
-            ),
-            FlashCardCategory(
-              iconData: Icons.computer,
-              label: 'Computer',
-              quizModel:
-                  QuizModel('Computer', 'Computer', homeCubit.computerList),
-            ),
-          ],
+          ),
         ),
       ],
     );
