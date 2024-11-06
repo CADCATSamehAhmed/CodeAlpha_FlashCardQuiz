@@ -11,18 +11,19 @@ class AcceptButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CustomButton(
-          text: 'Add More FlashCard',
+          text: 'Add More ',
           onPressed: addMoreFunction,
-          height: 50.h,
+          height: 40.h,
           isPrime: false,
         ),
-        const Spacer(),
+        SizedBox(width: 20.w),
         CustomButton(
-          text: 'Accept Flash Card',
+          text: 'Accept',
           onPressed: acceptFunction,
-          height: 50.h,
+          height: 40.h,
           isPrime: true,
         ),
       ],

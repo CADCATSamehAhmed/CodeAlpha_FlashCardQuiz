@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ResultBody extends StatefulWidget {
   final int score;
+
   const ResultBody({super.key, required this.score});
 
   @override
@@ -14,18 +15,20 @@ class ResultBody extends StatefulWidget {
 }
 
 class _ResultBodyState extends State<ResultBody> {
-  double opacity1=1;
-  double opacity2=0;
+  double opacity1 = 1;
+  double opacity2 = 0;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2)).then((value){
+    Future.delayed(const Duration(seconds: 2)).then((value) {
       setState(() {
-        opacity1=0;
-        opacity2=1;
+        opacity1 = 0;
+        opacity2 = 1;
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +38,7 @@ class _ResultBodyState extends State<ResultBody> {
           alignment: Alignment.center,
           children: [
             Opacity(
-              opacity: opacity2,
+              opacity: widget.score > 0? opacity2:1,
               child: Text(
                 "You Got ${widget.score} points",
                 textAlign: TextAlign.center,
@@ -46,17 +49,17 @@ class _ResultBodyState extends State<ResultBody> {
                 ),
               ),
             ),
-            Opacity(
-              opacity: opacity1,
-              child: ZoomIn(
-                duration: const Duration(milliseconds: 1500),
-                child: Image(image: AssetImage(Images.certificate),
-                  fit: BoxFit.cover,
-                    height: 300.w,
-                    width: 300.w
+              Opacity(
+                opacity: widget.score > 0?opacity1:0,
+                child: ZoomIn(
+                  duration: const Duration(milliseconds: 1500),
+                  child: Image(
+                      image: AssetImage(Images.certificate),
+                      fit: BoxFit.cover,
+                      height: 300.w,
+                      width: 300.w),
                 ),
               ),
-            ),
           ],
         ),
       ),

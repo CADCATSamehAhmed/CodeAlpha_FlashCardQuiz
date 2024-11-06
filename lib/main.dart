@@ -6,13 +6,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'core/constants/vars.dart';
 import 'core/shared_preferences/bloc_observer.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  await Hive.initFlutter();
+  final appDocumentDir = await getApplicationDocumentsDirectory();
+  await Hive.initFlutter(appDocumentDir.path);
   collection = await BoxCollection.open(
     'MyFirstHiveBox',
-    {'science','math','history','computer','language','business'},
+    {'science','math','history','computer','language','other'},
+    path: appDocumentDir.path,
   );
   runApp(const MyApp());
 }

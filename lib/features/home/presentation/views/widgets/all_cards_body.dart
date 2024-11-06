@@ -22,66 +22,41 @@ class AllCardsBody extends StatelessWidget {
           ...homeCubit.historyList,
           ...homeCubit.languageList,
           ...homeCubit.computerList,
-          ...homeCubit.businessList,
+          ...homeCubit.otherList,
         ];
-        return ListView(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.mainColor,
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(75.r),
-                ),
-              ),
-              child: ListTile(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20.w, vertical: 50.h),
-                title: Text(
-                  'All Flash Cards',
-                  style: TextStyle(color: Colors.white, fontSize: 25.sp),
-                ),
-                subtitle: Text(
-                  '',
-                  style: TextStyle(fontSize: 16.sp),
-                ),
-              ),
+        if (state is GetDataLoadingState) {
+          return Center(
+              child: CircularProgressIndicator(color: AppColors.mainColor));
+        } else if (allFlashCards.isNotEmpty) {
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            itemCount: allFlashCards.length,
+            itemBuilder: (context, index) => CardWidget(
+              flashCard: allFlashCards[index],
+              index: index,
             ),
-            Container(
-              color: AppColors.mainColor,
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 50.h),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(100.r),
-                  ),
+          );
+        } else {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image(
+                  image: AssetImage(Images.sorry),
+                  fit: BoxFit.cover,
+                  height: 250.w,
+                  width: 250.w),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30).w,
+                child: Text(
+                  "There is no Flash Card yet!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.secondary, fontSize: 25.sp),
                 ),
-                child: (allFlashCards.isNotEmpty)
-                    ? ListView.builder(
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: allFlashCards.length,
-                        itemBuilder: (context, index) =>
-                            CardWidget(flashCard: allFlashCards[index]))
-                    : Column(
-                        children: [
-                          Image(
-                              image: AssetImage(Images.sorry),
-                              fit: BoxFit.cover,
-                              height: 250.w,
-                              width: 250.w),
-                          Text(
-                            "There is no Flash Card yet!",
-                            style: TextStyle(
-                                color: AppColors.secondary, fontSize: 25.sp),
-                          ),
-                        ],
-                      ),
               ),
-            ),
-          ],
-        );
+            ],
+          );
+        }
       },
     );
   }

@@ -25,13 +25,13 @@ class HomeCubit extends Cubit<HomeStates> {
   late CollectionBox math;
   late CollectionBox computer;
   late CollectionBox language;
-  late CollectionBox business;
+  late CollectionBox other;
   List<FlashCardModel> scienceList=[];
   List<FlashCardModel> historyList=[];
   List<FlashCardModel> mathList=[];
   List<FlashCardModel> computerList=[];
   List<FlashCardModel> languageList=[];
-  List<FlashCardModel> businessList=[];
+  List<FlashCardModel> otherList=[];
 
   static HomeCubit get(context) {
     _homeCubit ??= BlocProvider.of(context);
@@ -50,14 +50,14 @@ class HomeCubit extends Cubit<HomeStates> {
     mathList=[];
     computerList=[];
     languageList=[];
-    businessList=[];
+    otherList=[];
     emit(GetDataLoadingState());
     science = await collection.openBox<Map>('science');
     history = await collection.openBox<Map>('history');
     math = await collection.openBox<Map>('math');
     computer = await collection.openBox<Map>('computer');
     language = await collection.openBox<Map>('language');
-    business = await collection.openBox<Map>('business');
+    other = await collection.openBox<Map>('other');
     final scienceMap =await science.getAllValues();
     scienceMap.forEach((key,value){
       scienceList.add(FlashCardModel.fromMap(value));
@@ -78,9 +78,9 @@ class HomeCubit extends Cubit<HomeStates> {
     computerMap.forEach((key,value){
       computerList.add(FlashCardModel.fromMap(value));
     });
-    final businessMap =await business.getAllValues();
-    businessMap.forEach((key,value){
-      businessList.add(FlashCardModel.fromMap(value));
+    final otherMap =await other.getAllValues();
+    otherMap.forEach((key,value){
+      otherList.add(FlashCardModel.fromMap(value));
     });
     emit(GetDataSuccessState());
   }
@@ -92,7 +92,7 @@ class HomeCubit extends Cubit<HomeStates> {
     else if(cBoxString == 'math'){cBox =math;}
     else if(cBoxString == 'computer'){cBox =computer;}
     else if(cBoxString == 'language'){cBox =language;}
-    else if(cBoxString == 'business'){cBox =business;}
+    else if(cBoxString == 'other'){cBox =other;}
     return cBox;
   }
 
@@ -102,7 +102,7 @@ class HomeCubit extends Cubit<HomeStates> {
     else if(cBoxString == 'math'){list =mathList;}
     else if(cBoxString == 'computer'){list =computerList;}
     else if(cBoxString == 'language'){list =languageList;}
-    else if(cBoxString == 'business'){list =businessList;}
+    else if(cBoxString == 'other'){list =otherList;}
     return list;
   }
 
@@ -137,7 +137,7 @@ class HomeCubit extends Cubit<HomeStates> {
       await computer.clear();
       await history.clear();
       await language.clear();
-      await business.clear();
+      await other.clear();
       emit(DeleteAllFlashCardsSuccessState());
     }catch(e){
      rethrow;

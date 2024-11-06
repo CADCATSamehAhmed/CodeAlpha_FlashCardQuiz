@@ -8,7 +8,7 @@ class SelectCategoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: DefaultAppbar(title: 'Choose Flash Card Category'),
+      appBar: DefaultAppbar(title: 'Select Category'),
       body: SelectCategoryBody(),
     );
   }

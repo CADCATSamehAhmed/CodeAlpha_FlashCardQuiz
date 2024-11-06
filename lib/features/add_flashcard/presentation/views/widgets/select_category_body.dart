@@ -28,8 +28,8 @@ class SelectCategoryBody extends StatelessWidget {
             label: 'language',
           ),
           CategoryCard(
-            iconData: Icons.business_center_sharp,
-            label: 'business',
+            iconData: Icons.quiz_outlined,
+            label: 'other',
           ),
           CategoryCard(
             iconData: Icons.computer,

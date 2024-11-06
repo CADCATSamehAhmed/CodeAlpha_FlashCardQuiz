@@ -7,8 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CardWidget extends StatelessWidget {
   final FlashCardModel flashCard;
-
-  const CardWidget({super.key, required this.flashCard});
+  final int index;
+  const CardWidget({super.key, required this.flashCard, required this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,23 @@ class CardWidget extends StatelessWidget {
               alignment: Alignment.topRight,
               children: [
                 Center(
-                    child: Text(
-                  flashCard.question,
-                  style: TextStyle(color: AppColors.mainColor, fontSize: 18.sp),
-                )),
+                  child: ListTile(
+                    title: Text(
+                      "Q ${index+1}: ${flashCard.question}",
+                      style:
+                          TextStyle(color: AppColors.mainColor, fontSize: 18.sp),
+                    ),
+                    subtitle: Text(
+                      "Answer: ${flashCard.rightAnswer}",
+                      style:
+                      TextStyle(color: AppColors.mainColor, fontSize: 16.sp),
+                    ),
+                  ),
+                ),
                 IconButton(
                   onPressed: () {
-                    HomeCubit.get(context).deleteFlashCard(flashCard.category, flashCard.flashCardId,flashCard);
+                    HomeCubit.get(context).deleteFlashCard(
+                        flashCard.category, flashCard.flashCardId, flashCard);
                   },
                   icon: const Icon(Icons.highlight_remove),
                 ),

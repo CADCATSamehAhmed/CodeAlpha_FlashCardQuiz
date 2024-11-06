@@ -18,7 +18,8 @@ class QuestionField extends StatelessWidget {
         validate: (v) {
           return null;
         },
-        filledColor:AppColors.mainColor,
+        hint:'add question',
+        filledColor:AppColors.mainColor.withOpacity(.5),
       ),
     );
   }

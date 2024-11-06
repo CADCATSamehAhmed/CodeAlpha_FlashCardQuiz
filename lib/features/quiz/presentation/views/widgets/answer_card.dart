@@ -47,7 +47,7 @@ class AnswerCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(25).r,
         boxShadow:  const [
           BoxShadow(
-            color: Colors.black,
+            color: Colors.grey,
             spreadRadius: 0.5,
             blurRadius: 6,
             offset: Offset(3, 3),
