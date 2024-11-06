@@ -1,5 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flash_card_quiz/core/themes/app_colors.dart';
 import 'package:flash_card_quiz/features/home/presentation/view_model/home_cubit.dart';
 import 'package:flash_card_quiz/features/home/presentation/views/widgets/flash_card_category.dart';
 import 'package:flutter/material.dart';
